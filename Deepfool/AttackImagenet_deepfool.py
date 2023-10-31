@@ -1,3 +1,5 @@
+#如果需要使用cpu需要更改三处，现在为GPU版本
+#使用命令行操控：python run_deepfool.py --gpu 0 --imagenet_dir 输入文件夹的地址 --save_dir 保存文件夹的地址
 import argparse
 import os
 import random
@@ -19,6 +21,7 @@ from mydeepfool import DeepFool
 if __name__ == '__main__':
     # 创建解析器来解析命令行参数
     parser = argparse.ArgumentParser(description='DeepFool Attack')
+    #如果使用CPU就注释掉下面一行
     parser.add_argument('--gpu', '--gpu_ids', type=str, required=True)
     parser.add_argument('--imagenet_dir', type=str, required=True)
     parser.add_argument('--save_dir', type=str, required=True)
@@ -34,6 +37,7 @@ if __name__ == '__main__':
     PHASE = args.phase
     BATCH_SIZE = args.batch_size
 
+    #如果使用CPU就注释掉下面一行
     os.environ['CUDA_VISIBLE_DEVICES'] = args.gpu
 
 
@@ -76,7 +80,10 @@ if __name__ == '__main__':
     train_set = datasets.ImageFolder(os.path.join(IMAGENET_DIR, PHASE), transform=transform)
     train_loader = DataLoader(train_set, batch_size=BATCH_SIZE, shuffle=False, num_workers=4, pin_memory=True)
 
+    #如果使用CPU就更换下面代码
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
+    #device = torch.device('cpu')
+
     torch.cuda.empty_cache()
 
     print('building model...')
