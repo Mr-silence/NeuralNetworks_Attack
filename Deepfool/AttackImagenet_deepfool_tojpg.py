@@ -19,7 +19,7 @@ from mydeepfool import DeepFool
 if __name__ == '__main__':
     # 创建解析器来解析命令行参数
     parser = argparse.ArgumentParser(description='DeepFool Attack')
-    #parser.add_argument('--gpu', '--gpu_ids', type=str, required=True)
+    parser.add_argument('--gpu', '--gpu_ids', type=str, required=True)
     parser.add_argument('--imagenet_dir', type=str, required=True)
     parser.add_argument('--save_dir', type=str, required=True)
     parser.add_argument('-p', '--phase', default='IMN', type=str)
@@ -34,7 +34,7 @@ if __name__ == '__main__':
     PHASE = args.phase
     BATCH_SIZE = args.batch_size
 
-    #os.environ['CUDA_VISIBLE_DEVICES'] = args.gpu
+    os.environ['CUDA_VISIBLE_DEVICES'] = args.gpu
 
 
     class Normalization(nn.Module):
@@ -76,8 +76,8 @@ if __name__ == '__main__':
     train_set = datasets.ImageFolder(os.path.join(IMAGENET_DIR, PHASE), transform=transform)
     train_loader = DataLoader(train_set, batch_size=BATCH_SIZE, shuffle=False, num_workers=4, pin_memory=True)
 
-    #device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
-    device = torch.device('cpu')
+    device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
+    #device = torch.device('cpu')
 
     torch.cuda.empty_cache()
 
