@@ -1,7 +1,5 @@
 # NeuralNetworks_Attack
 
-alexnet的github地址：https://github.com/Lornatang/AlexNet-PyTorch
-
 # Deepfool文件
 tojpg是攻击后输出jpg文件的代码
 tonpy是攻击后输出npy文件的代码
