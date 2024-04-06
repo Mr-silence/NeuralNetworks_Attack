@@ -22,7 +22,7 @@ def magenet_data(image_path, transform):
     image = preprocess_image(image_path, transform)
     return image
 
-image_path = 'C:\\Users\\1\\Desktop\\PGD\\attackimage\\ILSVRC2012_val_00000003.JPEG'
+image_path = 'C:\\Users\\1\\Desktop\\imagenet\\ILSVRC2012_val_00000018.JPEG'
 transform = transforms.Compose([
     transforms.Resize((299, 299)),
     transforms.ToTensor(),

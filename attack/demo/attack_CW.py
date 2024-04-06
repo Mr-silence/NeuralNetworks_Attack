@@ -10,8 +10,8 @@ import torch
 import torchvision
 from torchattacks import CW
 
-image_folder = 'C:\\Users\\1\\Desktop\\imagenet'
-save_folder = 'C:\\Users\\1\\Desktop\\save'
+image_folder = 'J:\\神经网络攻击数据\\imagenet\\ILSVRC2012_img_val\\n01443537'
+save_folder = 'C:\\Users\\1\\Desktop\\save\\n01443537'
 
 transform = transforms.Compose([
     transforms.Resize((299, 299)),
@@ -19,9 +19,9 @@ transform = transforms.Compose([
     transforms.Normalize(mean= [0.485, 0.456, 0.406], std= [0.229, 0.224, 0.225])
 ])
 
-labels=torch.tensor([432])
+labels=torch.tensor([1])
 device = "cpu"
-model = models.resnet18(pretrained=True).to(device).eval()
+model = models.vgg16(pretrained=True).to(device).eval()
 atk = CW(model, c=1, kappa=0, steps=50, lr=0.01)
 atk.set_normalization_used(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
 atk.set_mode_targeted_random()
@@ -39,9 +39,8 @@ def magenet_data(image_path, transform):
 def img_save(img , save_path=None):
     img = torchvision.utils.make_grid(img.cpu().data, normalize=True)
     npimg = img.numpy()
-    # 如果指定了保存路径，则保存图像
     if save_path:
-        plt.imsave(save_path, np.transpose(npimg, (1, 2, 0)))  # 保存图像为 JPEG 文件
+        plt.imsave(save_path, np.transpose(npimg, (1, 2, 0)))
 
 for filename in os.listdir(image_folder):
     img_path = os.path.join(image_folder, filename)
